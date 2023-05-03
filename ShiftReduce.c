@@ -5,7 +5,7 @@ d// Implementation of Shift Reduce Parsing
 #include<ctype.h>
 #include<stdlib.h>
 
-int k=0,z=0,i=0,j=0,c=0;
+int k=0,z=0,i=0,j=0,len=0;
 char a[16],ac[20],stk[15],act[10];
 void check();
 
@@ -14,11 +14,11 @@ int main() {
       printf("GRAMMAR is :\n E->E+E \n E->E*E \n E->(E) \n E->id\n");
       printf("Enter an input string : ");
       scanf("%s",a);
-      c=strlen(a);
+      len=strlen(a);
       strcpy(act,"SHIFT->");
       printf("stack \t input \t action\n");
       printf("----- \t ----- \t ------\n");
-      for(k=0,i=0; j<c; k++,i++,j++) {
+      for(k=0,i=0; j<len; k++,i++,j++) {
          if(a[j]=='i' && a[j+1]=='d') {
               stk[i]=a[j];
               stk[i+1]=a[j+1];
@@ -41,7 +41,7 @@ int main() {
 void check() {
      
      strcpy(ac,"REDUCE TO E");
-     for(z=0; z<c; z++)
+     for(z=0; z<len; z++)
        if(stk[z]=='i' && stk[z+1]=='d') {
            stk[z]='E';
            stk[z+1]='\0';
@@ -49,7 +49,7 @@ void check() {
            j++;
          }
 
-     for(z=0; z<c; z++)
+     for(z=0; z<len; z++)
        if(stk[z]=='E' && stk[z+1]=='+' && stk[z+2]=='E') {
            stk[z]='E';
            stk[z+1]='\0';
@@ -58,7 +58,7 @@ void check() {
            i=i-2;
          }
 
-     for(z=0; z<c; z++)
+     for(z=0; z<len; z++)
        if(stk[z]=='E' && stk[z+1]=='*' && stk[z+2]=='E') {
            stk[z]='E';
            stk[z+1]='\0';
@@ -67,7 +67,7 @@ void check() {
            i=i-2;
          }
 
-     for(z=0; z<c; z++)
+     for(z=0; z<len; z++)
        if(stk[z]=='(' && stk[z+1]=='E' && stk[z+2]==')') {
            stk[z]='E';
            stk[z+1]='\0';
